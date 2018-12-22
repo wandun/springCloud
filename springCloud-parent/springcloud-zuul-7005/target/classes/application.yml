@@ -1,0 +1,30 @@
+server: 
+  port: 7005
+ 
+spring: 
+  application:
+    name: springcloud-zuul
+ 
+eureka: 
+  client: 
+    service-url: 
+      defaultZone: http://peer1:7001/eureka,http://peer2:7002/eureka,http://peer3:7003/eureka  
+  instance:
+    instance-id: gateway-zuul-7005    #在注册中心右边的名称
+    prefer-ip-address: true           #显示ip
+
+#配置路由映射相关配置
+zuul: 
+  #ignored-services: springcloud-provider  忽略该服务 ，如果是"*" 则表示忽略所以的服务必须使用我们指定的访问
+  ignored-services: "*"
+  prefix: /gxm    #我们指定访问路径的浅醉
+  routes: 
+    mydept.serviceId: springcloud-provider  #指定映射的服务名称
+    mydept.path: /mydept/**                  # 指定访问的路径
+ 
+info:
+  app.name: springcloud-zuul-7005
+  company.name: cn.gxm
+  build.artifactId: springcloud-zuul-7005
+  build.version: 0.0.1-SNAPSHOT
+
